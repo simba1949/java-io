@@ -32,7 +32,7 @@ public class GetFileInfoApplication {
 		String absolutePath = file.getAbsolutePath();
 		log.info("获取文件绝对路径：{}", absolutePath);
 
-		// 获取父级文件对象
+		// 获取父级文件路径
 		String parent = file.getParent();
 		log.info("获取父级文件路径：{}", parent);
 
