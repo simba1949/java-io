@@ -4,12 +4,10 @@
 
 Windows
 > * 绝对路径：
-    >
-* D:\\Program Files\\file.txt
+>   * D:\\Program Files\\file.txt 
 >   * D:/Program Files/file.txt
 > * 相对路径：
-    >
-* ./../file.txt
+>   * ./../file.txt
 >   * .\..\file.txt
 
 Linux
