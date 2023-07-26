@@ -1,5 +1,8 @@
 package top.simba1949.file;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.File;
 import java.io.IOException;
 
@@ -14,7 +17,25 @@ import java.io.IOException;
  * @version 2023/7/26 21:27
  */
 public class CreateFileApplication {
+	public static final Logger log = LoggerFactory.getLogger(CreateFileApplication.class);
 
+	/**
+	 * 基于文件路径，创建文件对象
+	 * <p>
+	 * Windows
+	 * 绝对路径：
+	 * - D:\\Program Files\\file.txt
+	 * - D:/Program Files/file.txt
+	 * 相对路径：（如果是在 main 包下相对路径是基于整个项目下的路径；如果是在 test 包下相对路径是基于该模块下的路径）
+	 * - ./../file.txt
+	 * - .\..\file.txt
+	 * </p>
+	 * <p>
+	 * Linux
+	 * 绝对路径：/data/file.txt
+	 * 相对路径：./../file.text
+	 * </p>
+	 */
 	public static void main(String[] args) throws IOException {
 		// 绝对路径
 		// absolutePath1();
@@ -36,38 +57,21 @@ public class CreateFileApplication {
 		File netPathFile = new File(netPath);
 
 		// 输出网络文件名
-		System.out.println(netPathFile.getName());
+		log.info("获取到的网络资源文件名：{}", netPathFile.getName());
 	}
 
-	/**
-	 * 基于文件路径，创建文件对象
-	 * <p>
-	 * Windows
-	 * 绝对路径：
-	 * - D:\\Program Files\\file.txt
-	 * - D:/Program Files/file.txt
-	 * 相对路径：（如果是在 main 包下相对路径是基于整个项目下的路径；如果是在 test 包下相对路径是基于该模块下的路径）
-	 * - ./../file.txt
-	 * - .\..\file.txt
-	 * </p>
-	 * <p>
-	 * Linux
-	 * 绝对路径：/data/file.txt
-	 * 相对路径：./../file.text
-	 * </p>
-	 */
 	public static void absolutePath1() throws IOException {
 		// 绝对路径
 		String absolutePath = "D:\\Program Files\\file.txt";
 		File absolutePathFile = new File(absolutePath);
 
 		// 输出绝对路径
-		System.out.println(absolutePathFile.toPath().toAbsolutePath());
+		log.info("当前文件对象的绝对路径是：{}", absolutePathFile.toPath().toAbsolutePath());
 
 		if (absolutePathFile.createNewFile()) {
-			System.out.println("新文件创建完毕！");
+			log.info("新文件创建完毕！");
 		} else {
-			System.out.println("文件已存在，无需创建！");
+			log.info("文件已存在，无需创建！");
 		}
 	}
 
@@ -82,12 +86,12 @@ public class CreateFileApplication {
 		File absolutePathFile = new File(absolutePath);
 
 		// 输出绝对路径
-		System.out.println(absolutePathFile.toPath().toAbsolutePath());
+		log.info("当前文件对象的绝对路径是：{}", absolutePathFile.toPath().toAbsolutePath());
 
 		if (absolutePathFile.createNewFile()) {
-			System.out.println("新文件创建完毕！");
+			log.info("新文件创建完毕！");
 		} else {
-			System.out.println("文件已存在，无需创建！");
+			log.info("文件已存在，无需创建！");
 		}
 	}
 
@@ -102,12 +106,12 @@ public class CreateFileApplication {
 		File relativePathFile = new File(relativePath);
 
 		// 输出绝对路径
-		System.out.println(relativePathFile.toPath().normalize().toAbsolutePath());
+		log.info("当前文件对象的绝对路径是：{}", relativePathFile.toPath().toAbsolutePath());
 
 		if (relativePathFile.createNewFile()) {
-			System.out.println("新文件创建完毕！");
+			log.info("新文件创建完毕！");
 		} else {
-			System.out.println("文件已存在，无需创建！");
+			log.info("文件已存在，无需创建！");
 		}
 	}
 
@@ -122,12 +126,12 @@ public class CreateFileApplication {
 		File relativePathFile = new File(relativePath);
 
 		// 输出绝对路径
-		System.out.println(relativePathFile.toPath().toAbsolutePath());
+		log.info("当前文件对象的绝对路径是：{}", relativePathFile.toPath().toAbsolutePath());
 
 		if (relativePathFile.createNewFile()) {
-			System.out.println("新文件创建完毕！");
+			log.info("新文件创建完毕！");
 		} else {
-			System.out.println("文件已存在，无需创建！");
+			log.info("文件已存在，无需创建！");
 		}
 	}
 }
