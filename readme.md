@@ -56,7 +56,7 @@ Linux
 
 | 类/接口         | 说明    |
 | ------------ | ----- |
-| File         |       |
+| File         | 文件类   |
 | InputStream  | 字节输入流 |
 | OutputStream | 字节输出流 |
 | Reader       | 字符输入流 |
@@ -72,4 +72,8 @@ Linux
 | InputStream  | 字节输入流的父类，数据单位为字节 | int read(); void close()                      |
 | OutputStream | 字节输出流的父类，数据单位为字节 | int write(int); void flush(); void close()    |
 | Reader       | 字符输入流的父类，数据单位字符  | int read(); void close()                      |
-|              | 字符输出流的父类，数据单位字符  | int write(String); void flush(); void close() |
+| Writer       | 字符输出流的父类，数据单位字符  | int write(String); void flush(); void close() |
+
+# 流的类型
+
+
