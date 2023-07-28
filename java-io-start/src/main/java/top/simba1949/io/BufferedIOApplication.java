@@ -40,9 +40,9 @@ public class BufferedIOApplication {
                 BufferedInputStream bis = new BufferedInputStream(new FileInputStream(file))
         ) {
             // 操作流
-            int len = -1;
-            while ((len = bis.read()) != -1) {
-                System.out.println("读取的字节信息是：" + (char) len);
+            int readByte = -1;
+            while ((readByte = bis.read()) != -1) {
+                System.out.print("读取的字节信息是：" + (char) readByte);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -68,7 +68,7 @@ public class BufferedIOApplication {
             while ((len = bis.read(flush)) != -1) {
                 //
                 for (int i = 0; i < len; i++) {
-                    System.out.println("读取的字节信息是：" + (char) flush[i]);
+                    System.out.print("读取的字节信息是：" + (char) flush[i]);
                 }
             }
         } catch (IOException e) {
