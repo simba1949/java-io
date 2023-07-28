@@ -1,5 +1,6 @@
 package top.simba1949.nio.channel;
 
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.RandomAccessFile;
@@ -17,7 +18,10 @@ public class FileChannelApplication {
 		// read();
 
 		// 使用 FileChannelRead 写数据
-		write();
+		// write();
+
+		// 使用 FileChannelRead 读写数据
+		readAndWrite();
 	}
 
 	/**
@@ -87,6 +91,50 @@ public class FileChannelApplication {
 			if (null != fileOutputStream) {
 				try {
 					fileOutputStream.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+
+	/**
+	 * 使用 FileChannelRead 读写数据
+	 */
+	public static void readAndWrite() {
+		// 分配一个 Buffer
+		ByteBuffer byteBuffer = ByteBuffer.allocate(1024 * 1024);
+
+		String readFilePath = "./java-io-start/src/main/resources/file/channel/FileChannelRead";
+		String writeFilePath = "./java-io-start/src/main/resources/file/channel/FileChannelWrite";
+
+		// 需要通过使用一个InputStream、OutputStream 或 RandomAccessFile 来获取一个 FileChannelRead 实例。
+		FileInputStream fileInputStream = null;
+		FileOutputStream fileOutputStream = null;
+		try {
+			fileInputStream = new FileInputStream(readFilePath);
+			FileChannel inputStreamChannel = fileInputStream.getChannel();
+			inputStreamChannel.read(byteBuffer);
+
+			// 切换 Buffer 模式
+			byteBuffer.flip();
+
+			fileOutputStream = new FileOutputStream(writeFilePath);
+			FileChannel outputStreamChannel = fileOutputStream.getChannel();
+			outputStreamChannel.write(byteBuffer);
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			if (null != fileOutputStream) {
+				try {
+					fileOutputStream.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			if (null != fileInputStream) {
+				try {
+					fileInputStream.close();
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
