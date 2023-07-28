@@ -1,4 +1,4 @@
-package top.simba1949.io;
+package top.simba1949.io.byteStream;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -43,9 +43,10 @@ public class ByteArrayIOApplication {
 
         // 选择流
         ByteArrayInputStream is = new ByteArrayInputStream(readStrBytes);
-        int temp = -1;
-        while ((temp = is.read()) != -1) {
-            System.out.print((char) temp);
+        // 每次读取的字节信息
+        int readByte = -1;
+        while ((readByte = is.read()) != -1) {
+            System.out.print((char) readByte);
         }
         try {
             // 关闭流
@@ -132,8 +133,9 @@ public class ByteArrayIOApplication {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
         try {
-            // 操作流
+            // 缓冲区
             byte[] flush = new byte[10];
+            // 每次读取的字节长度
             int len = -1;
             while ((len = bais.read(flush)) != -1) {
                 // 每次读取 flush.length 字节数，但最终 os 拥有全部数据， os.toByteArray() 指的是 n 次读取数据的累加

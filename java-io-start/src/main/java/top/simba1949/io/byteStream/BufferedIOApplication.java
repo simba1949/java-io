@@ -1,4 +1,4 @@
-package top.simba1949.io;
+package top.simba1949.io.byteStream;
 
 import java.io.*;
 
@@ -39,7 +39,7 @@ public class BufferedIOApplication {
                 // 创建一个
                 BufferedInputStream bis = new BufferedInputStream(new FileInputStream(file))
         ) {
-            // 操作流
+            // 每次读取的字节信息
             int readByte = -1;
             while ((readByte = bis.read()) != -1) {
                 System.out.print("读取的字节信息是：" + (char) readByte);
@@ -134,8 +134,9 @@ public class BufferedIOApplication {
             bis = new BufferedInputStream(new FileInputStream(readFile));
             // false 表示每次写入，不追加直接覆盖，true表示追加
             bos = new BufferedOutputStream(new FileOutputStream(writeFile, false));
-            // 操作流
+            // 缓冲区
             byte[] flush = new byte[1024 * 8];
+            // 每次读取的字节长度
             int len = -1;
             while ((len = bis.read(flush)) != -1) {
                 bos.write(flush, 0, len);

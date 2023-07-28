@@ -10,6 +10,9 @@
     <packaging>pom</packaging>
     <modules>
         <module>java-io-start</module>
+        <module>guava-io</module>
+        <module>apache-common-io</module>
+        <module>hutool-io</module>
     </modules>
 
     <properties>

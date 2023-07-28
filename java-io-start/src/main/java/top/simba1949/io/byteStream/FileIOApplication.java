@@ -1,4 +1,4 @@
-package top.simba1949.io;
+package top.simba1949.io.byteStream;
 
 import java.io.*;
 
