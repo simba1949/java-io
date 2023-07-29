@@ -1,9 +1,6 @@
 package top.simba1949.nio.channel;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.RandomAccessFile;
+import java.io.*;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.charset.StandardCharsets;
@@ -21,7 +18,10 @@ public class FileChannelApplication {
 		// write();
 
 		// 使用 FileChannelRead 读写数据
-		readAndWrite();
+		// readAndWrite();
+
+		// 两个通道之间的交互
+		channel2Channel();
 	}
 
 	/**
@@ -29,23 +29,47 @@ public class FileChannelApplication {
 	 *
 	 * @throws IOException
 	 */
-	public static void read() throws IOException {
+	public static void read() {
 		// 分配一个 Buffer
 		ByteBuffer byteBuffer = ByteBuffer.allocate(1024 * 1024);
 
 		String filePath = "./java-io-start/src/main/resources/file/channel/FileChannelRead";
 		// 需要通过使用一个InputStream、OutputStream 或 RandomAccessFile 来获取一个 FileChannelRead 实例。
-		RandomAccessFile randomAccessFile = new RandomAccessFile(filePath, "rw");
-		// 获取一个 FileChannelRead 实例
-		FileChannel fileChannel = randomAccessFile.getChannel();
-		fileChannel.read(byteBuffer);
+		RandomAccessFile randomAccessFile = null;
+		FileChannel fileChannel = null;
+		try {
+			randomAccessFile = new RandomAccessFile(filePath, "rw");
+			// 获取一个 FileChannelRead 实例
+			fileChannel = randomAccessFile.getChannel();
+			fileChannel.read(byteBuffer);
 
-		// 切换模式
-		byteBuffer.flip();
+			// 切换模式
+			byteBuffer.flip();
 
-		while (byteBuffer.hasRemaining()) {
-			System.out.print("" + (char) byteBuffer.get());
+			while (byteBuffer.hasRemaining()) {
+				System.out.print("" + (char) byteBuffer.get());
+			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		} finally {
+			if (null != fileChannel) {
+				try {
+					fileChannel.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			if (null != randomAccessFile) {
+				try {
+					randomAccessFile.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
 		}
+
 	}
 
 	/**
@@ -111,12 +135,14 @@ public class FileChannelApplication {
 		// 需要通过使用一个InputStream、OutputStream 或 RandomAccessFile 来获取一个 FileChannelRead 实例。
 		FileInputStream fileInputStream = null;
 		FileOutputStream fileOutputStream = null;
+		FileChannel inputStreamChannel = null;
+		FileChannel outputStreamChannel = null;
 		try {
 			fileInputStream = new FileInputStream(readFilePath);
-			FileChannel inputStreamChannel = fileInputStream.getChannel();
+			inputStreamChannel = fileInputStream.getChannel();
 
 			fileOutputStream = new FileOutputStream(writeFilePath);
-			FileChannel outputStreamChannel = fileOutputStream.getChannel();
+			outputStreamChannel = fileOutputStream.getChannel();
 
 			// 假设分配的 buffer 内存很小，需要多次读取
 			while (true) {
@@ -133,12 +159,91 @@ public class FileChannelApplication {
 				// 将每次读取的 buffer 中的数据写入 channel 中
 				outputStreamChannel.write(byteBuffer);
 			}
+
+			outputStreamChannel.close();
+			fileOutputStream.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {
+			if (null != outputStreamChannel) {
+				try {
+					outputStreamChannel.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
 			if (null != fileOutputStream) {
 				try {
 					fileOutputStream.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+
+			if (null != inputStreamChannel) {
+				try {
+					inputStreamChannel.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			if (null != fileInputStream) {
+				try {
+					fileInputStream.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+
+	/**
+	 * 两个通道之间的交互
+	 */
+	public static void channel2Channel() {
+		String readFilePath = "./java-io-start/src/main/resources/file/channel/FileChannelRead";
+		String writeFilePath = "./java-io-start/src/main/resources/file/channel/FileChannelWrite";
+
+		// 需要通过使用一个InputStream、OutputStream 或 RandomAccessFile 来获取一个 FileChannelRead 实例。
+		FileInputStream fileInputStream = null;
+		FileOutputStream fileOutputStream = null;
+		FileChannel inputStreamChannel = null;
+		FileChannel outputStreamChannel = null;
+		try {
+			fileInputStream = new FileInputStream(readFilePath);
+			inputStreamChannel = fileInputStream.getChannel();
+
+			fileOutputStream = new FileOutputStream(writeFilePath);
+			outputStreamChannel = fileOutputStream.getChannel();
+
+			// 使用 transferFrom 完成拷贝
+			// outputStreamChannel.transferFrom(inputStreamChannel, 0, inputStreamChannel.size());
+			// 使用 transferTo 完成拷贝
+			inputStreamChannel.transferTo(0, inputStreamChannel.size(), outputStreamChannel);
+
+			outputStreamChannel.close();
+			fileOutputStream.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			if (null != outputStreamChannel) {
+				try {
+					outputStreamChannel.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			if (null != fileOutputStream) {
+				try {
+					fileOutputStream.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+
+			if (null != inputStreamChannel) {
+				try {
+					inputStreamChannel.close();
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
