@@ -103,7 +103,7 @@ public class FileChannelApplication {
 	 */
 	public static void readAndWrite() {
 		// 分配一个 Buffer
-		ByteBuffer byteBuffer = ByteBuffer.allocate(1024 * 1024);
+		ByteBuffer byteBuffer = ByteBuffer.allocate(10);
 
 		String readFilePath = "./java-io-start/src/main/resources/file/channel/FileChannelRead";
 		String writeFilePath = "./java-io-start/src/main/resources/file/channel/FileChannelWrite";
@@ -114,14 +114,25 @@ public class FileChannelApplication {
 		try {
 			fileInputStream = new FileInputStream(readFilePath);
 			FileChannel inputStreamChannel = fileInputStream.getChannel();
-			inputStreamChannel.read(byteBuffer);
-
-			// 切换 Buffer 模式
-			byteBuffer.flip();
 
 			fileOutputStream = new FileOutputStream(writeFilePath);
 			FileChannel outputStreamChannel = fileOutputStream.getChannel();
-			outputStreamChannel.write(byteBuffer);
+
+			// 假设分配的 buffer 内存很小，需要多次读取
+			while (true) {
+				// 每次进来前先清空数据，再读取
+				byteBuffer.clear();
+				int read = inputStreamChannel.read(byteBuffer);
+				if (read == -1) {
+					break;
+				}
+
+				// 切换 Buffer 模式
+				byteBuffer.flip();
+
+				// 将每次读取的 buffer 中的数据写入 channel 中
+				outputStreamChannel.write(byteBuffer);
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {
