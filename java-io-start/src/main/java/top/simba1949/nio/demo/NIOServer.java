@@ -16,7 +16,7 @@ import java.util.Set;
  */
 public class NIOServer {
 	public static void main(String[] args) throws IOException {
-		// 创建 Selector 对象
+		// 创建 Selector 对象，实际上是 WindowsSelectorImpl
 		Selector selector = Selector.open();
 
 		// 创建 ServerSocketChannel 对象
