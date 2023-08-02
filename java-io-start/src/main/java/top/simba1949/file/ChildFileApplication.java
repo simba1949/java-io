@@ -1,8 +1,5 @@
 package top.simba1949.file;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.io.File;
 
 /**
@@ -10,7 +7,6 @@ import java.io.File;
  * @version 2023/7/26 22:49
  */
 public class ChildFileApplication {
-	public static final Logger log = LoggerFactory.getLogger(CreateFileApplication.class);
 
 	/**
 	 * 获取文件夹下所有子文件信息
@@ -25,7 +21,7 @@ public class ChildFileApplication {
 		String[] childFileNameList = file.list();
 		if (null != childFileNameList) {
 			for (String childFileName : childFileNameList) {
-				log.info("获取到的子文件名称：{}", childFileName);
+				System.out.println("获取到的子文件名称：" + childFileName);
 			}
 		}
 
@@ -33,7 +29,7 @@ public class ChildFileApplication {
 		File[] childFileList = file.listFiles();
 		if (null != childFileList) {
 			for (File childFile : childFileList) {
-				log.info("获取到的子文件对象：{}", childFile);
+				System.out.println("获取到的子文件对象：" + childFile);
 			}
 		}
 	}
