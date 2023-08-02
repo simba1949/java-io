@@ -2,6 +2,7 @@ package top.simba1949.file;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 
 /**
  * @author anthony
@@ -51,7 +52,11 @@ public class GetFileInfoApplication {
 		System.out.println("获取到文件最后一次修改时间：" + lastedModified);
 
 		// 获取文件路径（可能是绝对路径，也可能是相对路径）
-		String path = file.getPath();
-		System.out.println("获取文件路径：" + path);
+		String pathStr = file.getPath();
+		System.out.println("获取文件路径：" + pathStr);
+
+		File file1 = new File("./../file.txt");
+		Path path = file1.toPath();
+		System.out.println("通过 java.nio 包下 Path 对象获取真实文件路径：" + path.toRealPath());
 	}
 }
