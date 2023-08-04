@@ -22,11 +22,9 @@ public class ObjectInputStreamApplication {
         String filePath = "./java-io-start/src/main/resources/file/byte/ObjectOutputStream";
         File file = new File(filePath);
 
-        FileInputStream fis = null;
         ObjectInputStream ois = null;
         try {
-
-            fis = new FileInputStream(file);
+            FileInputStream fis = new FileInputStream(file);
             // ObjectInputStream 只有一个 public 构造方法：ObjectInputStream(InputStream in)
             // 使用 ObjectInputStream 读取 InputStream in 中序列化数据
             ois = new ObjectInputStream(fis);
@@ -38,15 +36,8 @@ public class ObjectInputStreamApplication {
         } finally {
             if (null != ois) {
                 try {
+                    // 包装流底层会自动调用被包装流的 close 方法，这里只需要关闭包装流即可
                     ois.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            if (null != fis) {
-                try {
-                    fis.close();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
