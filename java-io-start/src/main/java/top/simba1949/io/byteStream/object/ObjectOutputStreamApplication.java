@@ -26,10 +26,9 @@ public class ObjectOutputStreamApplication {
         String filePath = "./java-io-start/src/main/resources/file/byte/ObjectOutputStream";
         File file = new File(filePath);
 
-        FileOutputStream fos = null;
         ObjectOutputStream oos = null;
         try {
-            fos = new FileOutputStream(file);
+            FileOutputStream fos = new FileOutputStream(file);
             // ObjectOutputStream 只有一个 public ObjectOutputStream(OutputStream out) 构造方法
             // 需要传一个输出 OutputStream out 流
             oos = new ObjectOutputStream(fos);
@@ -41,15 +40,8 @@ public class ObjectOutputStreamApplication {
         } finally {
             if (null != oos) {
                 try {
+                    // 包装流底层会自动调用被包装流的 close 方法，这里只需要关闭包装流即可
                     oos.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            if (null != fos) {
-                try {
-                    fos.close();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
