@@ -16,32 +16,57 @@ public class SequenceInputStreamApplication {
         merge();
     }
 
-    public static void merge() throws IOException {
+    public static void merge() {
         // 将该文件夹下所有的文件合并输出到一个文件中
-        String dirFilePath = "./java-io-start/src/main/resources/file/SequenceInputStream/dir";
+        String dirFilePath = "./java-io-start/src/main/resources/file/byte/SequenceInputStream/dir";
         File dirFile = new File(dirFilePath);
 
         // 创建输出源
-        String writeFilePath = "./java-io-start/src/main/resources/file/SequenceInputStream/merge";
-        // 这里需要追加内容才能合并
-        BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(writeFilePath, true));
+        String writeFilePath = "./java-io-start/src/main/resources/file/byte/SequenceInputStream/merge";
 
-        Vector<InputStream> vector = new Vector<>();
+        // 输出流
+        BufferedOutputStream bos = null;
+        // 输入流的合并流
         SequenceInputStream sis = null;
-        for (int i = 0; i < dirFile.listFiles().length; i++) {
-            vector.add(new BufferedInputStream(new FileInputStream(dirFilePath + "/" + i + ".tmp")));
-        }
-        sis = new SequenceInputStream(vector.elements());
+        try {
+            // 这里需要追加内容才能合并
+            FileOutputStream fos = new FileOutputStream(writeFilePath, true);
+            bos = new BufferedOutputStream(fos);
 
-        // 创建缓冲区
-        byte[] flush = new byte[1024];
-        int len = -1;
-        while ((len = sis.read(flush)) != -1) {
-            bos.write(flush, 0, len);
-        }
+            Vector<InputStream> vector = new Vector<>();
+            for (int i = 0; i < dirFile.listFiles().length; i++) {
+                vector.add(new BufferedInputStream(new FileInputStream(dirFilePath + "/" + i + ".tmp")));
+            }
+            sis = new SequenceInputStream(vector.elements());
 
-        bos.flush();
-        bos.close();
-        sis.close();
+            // 创建缓冲区
+            byte[] flush = new byte[1024];
+            int len = -1;
+            while ((len = sis.read(flush)) != -1) {
+                bos.write(flush, 0, len);
+            }
+
+            bos.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (null != bos) {
+                try {
+                    // 包装流底层会自动调用被包装流的 close 方法，这里只需要关闭包装流即可
+                    bos.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            if (null != sis) {
+                try {
+                    // 包装流底层会自动调用被包装流的 close 方法，这里只需要关闭包装流即可
+                    sis.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 }
