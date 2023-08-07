@@ -10,22 +10,22 @@ import java.io.IOException;
 public class ByteArrayOutputStreamApplication {
     public static void main(String[] args) {
         // ByteArrayOutputStream 写入
-        // write();
+        write();
     }
 
     /**
      * ByteArrayOutputStream 写入
      */
     public static void write() {
-        // 创建输入出源
-        String msg = "When the darkness falls will you please shine her the way (shine he the way).";
-
-        byte[] bytes = null;
         // 选择流
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        ByteArrayOutputStream baos = null;
 
         try {
+            baos = new ByteArrayOutputStream();
+
             // 写入到输出流流中
+            // 创建输入出源
+            String msg = "When the darkness falls will you please shine her the way (shine he the way).";
             baos.write(msg.getBytes());
 
             // 从输出流中获取字节数组
