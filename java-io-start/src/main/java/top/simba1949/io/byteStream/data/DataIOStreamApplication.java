@@ -6,7 +6,7 @@ import java.io.*;
  * @author anthony
  * @date 2023/7/28
  */
-public class DataIOStream {
+public class DataIOStreamApplication {
 
     /**
      * 数据流保留了数据类型，处理八大基本数据类型和String字符串类型，读取顺序和写出顺序一致
