@@ -1,4 +1,4 @@
-package top.simba1949.io.byteToCharacter;
+package top.simba1949.io.characterStream.byteToCharacter;
 
 import java.io.*;
 

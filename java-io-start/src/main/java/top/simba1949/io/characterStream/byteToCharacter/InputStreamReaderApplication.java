@@ -1,4 +1,4 @@
-package top.simba1949.io.byteToCharacter;
+package top.simba1949.io.characterStream.byteToCharacter;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -23,7 +23,7 @@ public class InputStreamReaderApplication {
      */
     public static void singleCharRead() {
         // 1.创建输入源
-        String readFilePath = "./java-io-start/src/main/resources/file/InputStreamReader";
+        String readFilePath = "./java-io-start/src/main/resources/file/character/InputStreamReader";
         File readFile = new File(readFilePath);
         // 2.选择流
         InputStreamReader isr = null;
@@ -53,7 +53,7 @@ public class InputStreamReaderApplication {
      */
     public static void customFlushRead() {
         // 1.创建输入源
-        String readFilePath = "./java-io-start/src/main/resources/file/InputStreamReader";
+        String readFilePath = "./java-io-start/src/main/resources/file/character/InputStreamReader";
         File readFile = new File(readFilePath);
 
         // 2.选择流
