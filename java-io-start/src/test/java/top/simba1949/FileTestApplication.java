@@ -14,16 +14,16 @@ public class FileTestApplication {
 	@Test
 	public void test() throws IOException {
 		// 相对路径：相对路径是基于整个项目下的路径
-		String relativePath = "./../file.txt";
+		String relativePath = "./../doc/testFileRelativePath.txt";
 		File relativePathFile = new File(relativePath);
-
-		// 输出绝对路径
-		System.out.println(relativePathFile.toPath().normalize().toAbsolutePath());
 
 		if (relativePathFile.createNewFile()) {
 			System.out.println("新文件创建完毕！");
 		} else {
 			System.out.println("文件已存在，无需创建！");
 		}
+
+		// 输出绝对路径
+		System.out.println(relativePathFile.toPath().toRealPath());
 	}
 }
