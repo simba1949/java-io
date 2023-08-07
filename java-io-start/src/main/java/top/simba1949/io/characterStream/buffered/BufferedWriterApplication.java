@@ -12,7 +12,7 @@ import java.io.IOException;
 public class BufferedWriterApplication {
     public static void main(String[] args) {
         // 使用 BufferedWriter 进行写
-        // writer();
+        writer();
     }
 
     /**
@@ -20,7 +20,7 @@ public class BufferedWriterApplication {
      */
     public static void writer() {
         // 创建输出源
-        String writeFilePath = "./java-io-start/src/main/resources/file/FileWriter";
+        String writeFilePath = "./java-io-start/src/main/resources/file/character/FileWriter";
         File writeFile = new File(writeFilePath);
 
         // 2.选择流
