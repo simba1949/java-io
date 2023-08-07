@@ -12,14 +12,14 @@ import java.io.IOException;
 public class BufferedOutputStreamApplication {
     public static void main(String[] args) {
         // 使用 BufferedOutputStream 写
-        // write();
+        write();
     }
 
     /**
      * BufferedOutputStream 写
      */
     public static void write() {
-        String filePath = "./java-io-start/src/main/resources/file/BufferedOutputStream";
+        String filePath = "./java-io-start/src/main/resources/file/byte/BufferedOutputStream";
         File file = new File(filePath);
 
         // 创建输入源
