@@ -15,7 +15,7 @@ public class BufferedReaderApplication {
         // singleCharRead();
 
         // 自定义缓存读取
-        // customFlushRead();
+        customFlushRead();
     }
 
     /**
@@ -23,7 +23,7 @@ public class BufferedReaderApplication {
      */
     public static void singleCharRead() {
         // 创建输入源
-        String readFilePath = "./java-io-start/src/main/resources/file/BufferedReader";
+        String readFilePath = "./java-io-start/src/main/resources/file/character/BufferedReader";
         File readFile = new File(readFilePath);
 
         // 选择流
@@ -55,7 +55,7 @@ public class BufferedReaderApplication {
      */
     public static void customFlushRead() {
         // 创建输入源
-        String readFilePath = "./java-io-start/src/main/resources/file/BufferedReader";
+        String readFilePath = "./java-io-start/src/main/resources/file/character/BufferedReader";
         File readFile = new File(readFilePath);
 
         // 选择流
