@@ -20,7 +20,7 @@ public class OutputStreamWriterApplication {
      */
     public static void write() {
         // 1.创建输出源
-        String writeFilePath = "./java-io-start/src/main/resources/file/OutputStreamWriter";
+        String writeFilePath = "./java-io-start/src/main/resources/file/character/OutputStreamWriter";
         File writeFile = new File(writeFilePath);
 
         // 2.选择流
