@@ -11,7 +11,7 @@ import java.io.IOException;
 public class FileOutputStreamApplication {
     public static void main(String[] args) {
         // 写操作
-        // writer();
+        writer();
     }
 
     /**
@@ -19,21 +19,30 @@ public class FileOutputStreamApplication {
      */
     public static void writer() {
         // 创建写的源
-        String filePath = "./java-io-start/src/main/resources/file/fileOutputStream";
+        String filePath = "./java-io-start/src/main/resources/file/byte/FileOutputStream";
         File file = new File(filePath);
 
-        //
+        // 创建输入源
         String msg = "So long lives this and this gives life to thee.";
         byte[] src = msg.getBytes();
 
-        try (
-                // 选择流，写入是否追加，默认 false 表示重写， true 表示在文件后面追加
-                FileOutputStream os = new FileOutputStream(file, true);
-        ) {
-            os.write(src, 0, src.length);
-            os.flush();
+        FileOutputStream fos = null;
+        try {
+            // 选择流，写入是否追加，默认 false 表示重写， true 表示在文件后面追加
+            fos = new FileOutputStream(file, false);
+
+            fos.write(src, 0, src.length);
+            fos.flush();
         } catch (IOException e) {
             e.printStackTrace();
+        } finally {
+            if (null != fos) {
+                try {
+                    fos.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 }

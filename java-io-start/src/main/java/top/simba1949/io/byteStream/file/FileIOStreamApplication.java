@@ -26,10 +26,10 @@ public class FileIOStreamApplication {
      */
     public static void readAndWrite() {
         // 创建读的源
-        String readFilePath = "./java-io-start/src/main/resources/file/fileInputStream";
+        String readFilePath = "./java-io-start/src/main/resources/file/FileInputStream";
         File readFile = new File(readFilePath);
         // 创建写的源
-        String writeFilePath = "./java-io-start/src/main/resources/file/fileOutputStream";
+        String writeFilePath = "./java-io-start/src/main/resources/file/FileOutputStream";
         File writeFile = new File(writeFilePath);
         // 设置文件写，默认是只读
         writeFile.setWritable(Boolean.TRUE);

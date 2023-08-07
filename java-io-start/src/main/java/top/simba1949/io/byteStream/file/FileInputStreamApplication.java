@@ -25,7 +25,7 @@ public class FileInputStreamApplication {
      * 使用传统的 try-catch-finally
      */
     public static void tryCatchFinally() {
-        String filePath = "./java-io-start/src/main/resources/file/byte/fileInputStream";
+        String filePath = "./java-io-start/src/main/resources/file/byte/FileInputStream";
         File file = new File(filePath);
 
         FileInputStream fis = null;
@@ -55,7 +55,7 @@ public class FileInputStreamApplication {
      * 使用语法糖 try-with-resources
      */
     public static void tryWithResources() {
-        String filePath = "./java-io-start/src/main/resources/file/byte/fileInputStream";
+        String filePath = "./java-io-start/src/main/resources/file/byte/FileInputStream";
         File file = new File(filePath);
 
         try (
@@ -75,7 +75,7 @@ public class FileInputStreamApplication {
      * 使用自定义缓存区读取数据
      */
     public static void customBufferedRead() {
-        String filePath = "./java-io-start/src/main/resources/file/byte/fileInputStream";
+        String filePath = "./java-io-start/src/main/resources/file/byte/FileInputStream";
         File file = new File(filePath);
 
         FileInputStream fis = null;
