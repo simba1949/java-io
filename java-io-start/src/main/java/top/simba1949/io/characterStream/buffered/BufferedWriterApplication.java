@@ -20,7 +20,7 @@ public class BufferedWriterApplication {
      */
     public static void writer() {
         // 创建输出源
-        String writeFilePath = "./java-io-start/src/main/resources/file/character/FileWriter";
+        String writeFilePath = "./java-io-start/src/main/resources/file/character/BufferedWriter";
         File writeFile = new File(writeFilePath);
 
         // 2.选择流

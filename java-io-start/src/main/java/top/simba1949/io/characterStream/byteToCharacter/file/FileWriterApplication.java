@@ -11,7 +11,7 @@ import java.io.IOException;
 public class FileWriterApplication {
     public static void main(String[] args) {
         // 写
-        // write();
+        write();
     }
 
     /**
@@ -19,7 +19,7 @@ public class FileWriterApplication {
      */
     public static void write() {
         // 创建输出源
-        String writeFilePath = "./java-io-start/src/main/resources/file/FileWriter";
+        String writeFilePath = "./java-io-start/src/main/resources/file/character/FileWriter";
         File writeFile = new File(writeFilePath);
         // 字符
         String readStr = "天道酬勤，the time of show me code";
