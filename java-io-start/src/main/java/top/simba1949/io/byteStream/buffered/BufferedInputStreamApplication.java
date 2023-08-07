@@ -11,32 +11,39 @@ import java.io.IOException;
  */
 public class BufferedInputStreamApplication {
     public static void main(String[] args) {
-        // 字节缓冲流读取
+        // 单个字节读取
         // read();
 
         // 使用自定义缓冲区读取
-        // useCustomBufferRead();
+        useCustomBufferRead();
     }
 
     /**
      * 单个字节读取
      */
     public static void read() {
-        String filePath = "./java-io-start/src/main/resources/file/BufferedInputStream";
+        String filePath = "./java-io-start/src/main/resources/file/byte/filter/BufferedInputStream";
         File file = new File(filePath);
 
-        try (
-                // 创建一个
-                BufferedInputStream bis = new BufferedInputStream(new FileInputStream(file))
-        ) {
+        BufferedInputStream bis = null;
+        try {
+            bis = new BufferedInputStream(new FileInputStream(file));
+
             // 每次读取的字节信息
             int readByte = -1;
             while ((readByte = bis.read()) != -1) {
-                System.out.print("读取的字节信息是：" + (char) readByte);
+                System.out.print((char) readByte);
             }
         } catch (IOException e) {
             e.printStackTrace();
-            throw new RuntimeException(e);
+        } finally {
+            if (null != bis) {
+                try {
+                    bis.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 
@@ -44,7 +51,7 @@ public class BufferedInputStreamApplication {
      * 使用自定义缓冲区读取
      */
     public static void useCustomBufferRead() {
-        String filePath = "./java-io-start/src/main/resources/file/BufferedInputStream";
+        String filePath = "./java-io-start/src/main/resources/file/byte/filter/BufferedInputStream";
         File file = new File(filePath);
 
         BufferedInputStream bis = null;
@@ -56,9 +63,9 @@ public class BufferedInputStreamApplication {
             // 每次读取的长度
             int len = -1;
             while ((len = bis.read(flush)) != -1) {
-                //
+                // 每次打印缓冲中的数据
                 for (int i = 0; i < len; i++) {
-                    System.out.print("读取的字节信息是：" + (char) flush[i]);
+                    System.out.print((char) flush[i]);
                 }
             }
         } catch (IOException e) {
