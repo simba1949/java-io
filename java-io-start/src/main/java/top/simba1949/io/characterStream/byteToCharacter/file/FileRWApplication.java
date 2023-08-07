@@ -1,4 +1,4 @@
-package top.simba1949.io.characterStream.file;
+package top.simba1949.io.characterStream.byteToCharacter.file;
 
 import java.io.File;
 import java.io.FileReader;

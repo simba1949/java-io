@@ -1,4 +1,4 @@
-package top.simba1949.io.characterStream.file;
+package top.simba1949.io.characterStream.byteToCharacter.file;
 
 import java.io.File;
 import java.io.FileReader;
@@ -14,7 +14,7 @@ public class FileReaderApplication {
         // singleCharReader();
 
         // 自定义缓存读取
-        // customFlushRead();
+        customFlushRead();
     }
 
     /**
@@ -22,7 +22,7 @@ public class FileReaderApplication {
      */
     public static void singleCharReader() {
         // 创建源
-        String readFilePath = "./java-io-start/src/main/resources/file/FileReader";
+        String readFilePath = "./java-io-start/src/main/resources/file/character/FileReader";
         File readFile = new File(readFilePath);
 
         // 选择流
@@ -33,7 +33,7 @@ public class FileReaderApplication {
             // 每次读取的字符信息
             int readChar;
             while ((readChar = reader.read()) != -1) {
-                System.out.print("" + (char) readChar);
+                System.out.print((char) readChar);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -53,7 +53,7 @@ public class FileReaderApplication {
      */
     public static void customFlushRead() {
         // 创建源
-        String readFilePath = "./java-io-start/src/main/resources/file/FileReader";
+        String readFilePath = "./java-io-start/src/main/resources/file/character/FileReader";
         File readFile = new File(readFilePath);
 
         // 选择流
