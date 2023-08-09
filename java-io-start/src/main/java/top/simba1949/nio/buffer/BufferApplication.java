@@ -1,4 +1,4 @@
-package top.simba1949.nio;
+package top.simba1949.nio.buffer;
 
 import java.io.IOException;
 import java.io.RandomAccessFile;
@@ -43,22 +43,31 @@ public class BufferApplication {
 		String path = Objects.requireNonNull(resource).getPath();
 		System.out.println("The path is " + path);
 
+		// 将文件数据读取到文件对象中
 		RandomAccessFile aFile = new RandomAccessFile(path, "rw");
+		// 获取文件通道
 		FileChannel inChannel = aFile.getChannel();
 
-		// create buffer with capacity of 48 bytes
+		// 分配 48 个 byte 的缓存
 		ByteBuffer buf = ByteBuffer.allocate(48);
 
-		int bytesRead = inChannel.read(buf); //read into buffer.
+		// channel 读取自身数据到缓存中
+		int bytesRead = inChannel.read(buf);
 		while (bytesRead != -1) {
-			buf.flip();  // make buffer ready for read
+			// 反转缓存的读写
+			buf.flip();
+			// 判断当前位置和限制之间是否存在元素
 			while (buf.hasRemaining()) {
-				System.out.print((char) buf.get()); // read 1 byte at a time
+				// get 每次读取一个字节
+				System.out.print((char) buf.get());
 			}
 
-			buf.clear(); // make buffer ready for writing
-			bytesRead = inChannel.read(buf); // read into buffer.
+			// 情况缓存，为下步写 buffer 做准备
+			buf.clear();
+			// channel 再次读取自身数据到 buffer 中
+			bytesRead = inChannel.read(buf);
 		}
+		// 关闭文件对象会自动关闭对应的 channel
 		aFile.close();
 
 		System.out.println();
