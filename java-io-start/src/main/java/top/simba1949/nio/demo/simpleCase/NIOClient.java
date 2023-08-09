@@ -1,4 +1,4 @@
-package top.simba1949.nio.channel.socketChannel.simpleCase;
+package top.simba1949.nio.demo.simpleCase;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;

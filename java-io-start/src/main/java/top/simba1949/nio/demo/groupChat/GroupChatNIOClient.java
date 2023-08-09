@@ -1,4 +1,4 @@
-package top.simba1949.nio.channel.socketChannel.groupChat;
+package top.simba1949.nio.demo.groupChat;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
