@@ -8,6 +8,7 @@ import java.io.IOException;
  */
 public class EchoServer {
     public static void main(String[] args) throws IOException {
+        System.out.println("当前线程信息：id=" + Thread.currentThread().getId() + "，name=" + Thread.currentThread().getName());
         new Reactor("127.0.0.1", 7777).run();
     }
 }

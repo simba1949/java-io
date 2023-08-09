@@ -39,6 +39,7 @@ public class Reactor implements Runnable {
         selectionKey.attach(new Acceptor());
 
         System.out.println("服务端启动成功");
+        System.out.println("当前线程信息：id=" + Thread.currentThread().getId() + "，name=" + Thread.currentThread().getName());
     }
 
     /**
@@ -49,6 +50,8 @@ public class Reactor implements Runnable {
         try {
             // 这里进行监听准备就绪的事件
             while (!Thread.interrupted()) {
+                System.out.println("当前线程信息：id=" + Thread.currentThread().getId() + "，name=" + Thread.currentThread().getName());
+
                 selector.select();
 
                 Set<SelectionKey> selectionKeys = selector.selectedKeys();
@@ -70,6 +73,8 @@ public class Reactor implements Runnable {
      * @param selectionKey
      */
     void dispatch(SelectionKey selectionKey) {
+        System.out.println("当前线程信息：id=" + Thread.currentThread().getId() + "，name=" + Thread.currentThread().getName());
+
         Runnable handler = (Runnable) (selectionKey.attachment());
         // 调用之前绑定到选择键的 handler 对象
         if (handler != null) {
@@ -85,6 +90,8 @@ public class Reactor implements Runnable {
         @Override
         public void run() {
             try {
+                System.out.println("当前线程信息：id=" + Thread.currentThread().getId() + "，name=" + Thread.currentThread().getName());
+
                 // 接收一个新的连接
                 SocketChannel socketChannel = serverSocketChannel.accept();
                 if (socketChannel != null) {

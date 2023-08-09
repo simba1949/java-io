@@ -27,6 +27,7 @@ public class Handler implements Runnable {
     int state = RECEIVING;
 
     Handler(Selector selector, SocketChannel socketChannel) throws IOException {
+        System.out.println("当前线程信息：id=" + Thread.currentThread().getId() + "，name=" + Thread.currentThread().getName());
         this.channel = socketChannel;
         socketChannel.configureBlocking(false);
 
@@ -43,6 +44,8 @@ public class Handler implements Runnable {
     @Override
     public void run() {
         try {
+            System.out.println("当前线程信息：id=" + Thread.currentThread().getId() + "，name=" + Thread.currentThread().getName());
+
             if (state == SENDING) {
                 // 发送状态，把数据写入连接通道
                 channel.write(outputBuffer);
