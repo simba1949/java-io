@@ -30,7 +30,6 @@ public class MultiThreadReactorClient {
             while (!socketChannel.finishConnect()) {
                 // 自旋等待连接成功
             }
-            System.out.println("客户端启动成功");
 
             Scanner scanner = new Scanner(System.in);
             while (scanner.hasNext()) {
