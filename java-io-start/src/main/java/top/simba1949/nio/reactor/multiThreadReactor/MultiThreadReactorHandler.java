@@ -1,6 +1,7 @@
 package top.simba1949.nio.reactor.multiThreadReactor;
 
 import java.io.IOException;
+import java.net.StandardSocketOptions;
 import java.nio.ByteBuffer;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
@@ -17,11 +18,11 @@ import java.util.concurrent.Executors;
  * @date 2023/8/9
  */
 public class MultiThreadReactorHandler implements Runnable {
-    private SocketChannel channel;
-    private SelectionKey selectionKey;
+    private final SocketChannel channel;
+    private final SelectionKey selectionKey;
 
-    private ByteBuffer inputBuffer = ByteBuffer.allocate(8 * 1024);
-    private ByteBuffer outputBuffer = ByteBuffer.allocate(8 * 1024);
+    private final ByteBuffer inputBuffer = ByteBuffer.allocate(8 * 1024);
+    private final ByteBuffer outputBuffer = ByteBuffer.allocate(8 * 1024);
 
     // 处理器实例状态：发送和接收，一个连接对应一个处理器实例
     private static final int RECEIVING = 0;
@@ -34,7 +35,8 @@ public class MultiThreadReactorHandler implements Runnable {
     MultiThreadReactorHandler(Selector selector, SocketChannel c) throws IOException {
         System.out.println("MultiThreadReactorHandler MultiThreadReactorHandler 当前线程信息：id=" + Thread.currentThread().getId());
         channel = c;
-        c.configureBlocking(false);
+        channel.configureBlocking(false);
+        channel.setOption(StandardSocketOptions.TCP_NODELAY, true);
 
         // 与之前的注册方式不同，先仅仅取得选择键，之后再单独设置感兴趣的IO事件
         selectionKey = channel.register(selector, 0);
@@ -69,8 +71,6 @@ public class MultiThreadReactorHandler implements Runnable {
                 selectionKey.interestOps(SelectionKey.OP_READ);
                 // 修改状态
                 state = RECEIVING;
-
-                selectionKey.cancel();
             } else if (state == RECEIVING) {
                 // 接收专题，从通道读取数据
                 int len = 0;
@@ -81,9 +81,6 @@ public class MultiThreadReactorHandler implements Runnable {
                 // 准备写数据到通道中，注册 write 就绪事件
                 selectionKey.interestOps(SelectionKey.OP_WRITE);
                 state = SENDING;
-
-                // 处理结束了，这里不能关闭 SelectionKey 需要重复使用
-                // selectionKey.cancel();
             }
         } catch (IOException e) {
             e.printStackTrace();
